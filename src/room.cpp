@@ -64,7 +64,15 @@ Room* Room::handleMovement(string input) {
             if (isOutsideBounds(x + 1, y)) continue;
             x++;
         } else if (i == 'e' && rooms.contains(array<int, 2>{x, y})) {
-            return rooms.at(array<int, 2>{x, y});
+            Room* room = rooms.at(array<int, 2>{x, y});
+            for (auto & it : room->rooms) {
+                if (it.second == this) {
+                    room->setX(it.first[0]);
+                    room->setY(it.first[1]);
+                    break;
+                }
+            }
+            return room;
         }
     }
     return this;
