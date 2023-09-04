@@ -5,5 +5,5 @@ This is just a C++ learning project
 - [x] Basic room system
 - [ ] Custom map maker
 - [ ] Custom room saver
-- [ ] Replace map in terminal instead of printing a new one
+- [x] Replace map in terminal instead of printing a new one
 - [ ] Cool menu
