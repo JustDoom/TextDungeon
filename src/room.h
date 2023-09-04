@@ -5,6 +5,10 @@
 #ifndef TEXTDUNGEON_ROOM_H
 #define TEXTDUNGEON_ROOM_H
 
+#include <string>
+#include <map>
+#include "vector"
+
 class Room {
 private:
     int height;
@@ -13,6 +17,8 @@ private:
     int x;
     int y;
 
+    std::map<std::array<int, 2>, Room*> rooms;
+
 public:
     Room();
     Room(int h, int w, int x, int y);
@@ -20,7 +26,7 @@ public:
     // Methods
     void render();
     bool isOutsideBounds(int x, int y);
-    void handleMovement(std::string input);
+    Room* handleMovement(std::string input);
 
     // Getters and Setters
     void setHeight(int h);
@@ -31,6 +37,8 @@ public:
     int getX();
     void setY(int y);
     int getY();
+    void addRoom(Room &room, int x, int y);
+    std::map<std::array<int, 2>, Room*> getRooms();
 };
 
 #endif

@@ -11,13 +11,24 @@ int main() {
     cin >> height;
     cout << "Generating map of that size..." << endl;
 
-    Room room(height, width, 1, 1);
+    vector<Room> rooms;
+    Room room = Room(height, width, 1, 1);
+    rooms.push_back(room);
+    room = Room(2, 4, 1, 1);
+    rooms.push_back(room);
+    rooms[0].addRoom(room, 3, 3);
+    room.addRoom(rooms[0], 2, 2);
 
-    while (true) {
-        room.render();
+    Room* currentRoom = &rooms[0];
+    bool running = true;
+
+    while (running) {
+        currentRoom->render();
         string input;
         cout << "Input (WASD): ";
         cin >> input;
-        room.handleMovement(input);
+        currentRoom = currentRoom->handleMovement(input);
     }
+
+    return 0;
 }
