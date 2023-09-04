@@ -27,11 +27,11 @@ void Room::render() {
     system("clear"); // Apparently unsafe. look into alternatives
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
-            if (i + 1 == y && j + 1 == x) {
+            if (i + 1 == y && j + 1 == x) { // Render player
                 cout << "x";
-            } else if (rooms.contains(std::array<int, 2>{j + 1, i + 1})) {
+            } else if (rooms.contains(std::array<int, 2>{j + 1, i + 1})) { // Render room entrances
                 cout << "R";
-            } else {
+            } else {  // Render floor
                 cout << "0";
             }
         }
@@ -40,37 +40,45 @@ void Room::render() {
 }
 
 bool Room::isOutsideBounds(int x, int y) {
-    if (x > width || x < 1) {
-        return true;
-    }
-    if (y > height || y < 1) {
-        return true;
-    }
-    return false;
+    return (x > width || x < 1) || (y > height || y < 1);
 }
 
 Room* Room::handleMovement(string input) {
+    // Loop through each move action
     for (char i : input) {
         if (i == 'w') {
-            if (isOutsideBounds(x, y - 1)) continue;
+            if (isOutsideBounds(x, y - 1)) {
+                continue;
+            }
             y--;
         } else if (i == 'a') {
-            if (isOutsideBounds(x - 1, y)) continue;
+            if (isOutsideBounds(x - 1, y)) {
+                continue;
+            }
             x--;
         } else if (i == 's') {
-            if (isOutsideBounds(x, y + 1)) continue;
+            if (isOutsideBounds(x, y + 1)) {
+                continue;
+            }
             y++;
         } else if (i == 'd') {
-            if (isOutsideBounds(x + 1, y)) continue;
+            if (isOutsideBounds(x + 1, y)) {
+                continue;
+            }
             x++;
         } else if (i == 'e' && rooms.contains(array<int, 2>{x, y})) {
+            // Get the room the player attempts to enter
             Room* room = rooms.at(array<int, 2>{x, y});
+            // Loop through the rooms in the next room to find the exit of the current room
             for (auto & it : room->rooms) {
-                if (it.second == this) {
-                    room->setX(it.first[0]);
-                    room->setY(it.first[1]);
-                    break;
+                if (it.second != this) {
+                    continue;
                 }
+
+                // Set position in next room to the exit
+                room->setX(it.first[0]);
+                room->setY(it.first[1]);
+                break;
             }
             return room;
         }

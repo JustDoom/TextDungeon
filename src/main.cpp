@@ -4,11 +4,13 @@ using namespace std;
 
 int main() {
 
+    // TODO: Make a player Object so it can support multiple players
+
     vector<Room> rooms;
 
     // Add all the rooms
-    rooms.push_back(Room(5, 5, 1, 1));
-    rooms.push_back(Room(2, 4, 1, 1));
+    rooms.emplace_back(5, 5, 1, 1);
+    rooms.emplace_back(2, 4, 1, 1);
 
     // Add rooms to rooms
     rooms[0].addRoom(&rooms[1], 3, 3);
@@ -17,6 +19,7 @@ int main() {
     Room* currentRoom = &rooms[0];
     bool running = true;
 
+    // Main loop
     while (running) {
         currentRoom->render();
         string input;
