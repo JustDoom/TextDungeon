@@ -37,7 +37,7 @@ public:
     int getX();
     void setY(int y);
     int getY();
-    void addRoom(Room &room, int x, int y);
+    void addRoom(Room* room, int x, int y);
     std::map<std::array<int, 2>, Room*> getRooms();
 };
 

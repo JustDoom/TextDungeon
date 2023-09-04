@@ -4,7 +4,6 @@
 
 #include "room.h"
 #include "iostream"
-#include "vector"
 
 using namespace std;
 
@@ -25,6 +24,7 @@ Room::Room(int h, int w, int x, int y) {
 }
 
 void Room::render() {
+    system("clear"); // Apparently unsafe. look into alternatives
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
             if (i + 1 == y && j + 1 == x) {
@@ -102,7 +102,11 @@ int Room::getY() {
     return y;
 }
 
-void Room::addRoom(Room &room, int x, int y) {
+void Room::addRoom(Room* room, int x, int y) {
     array<int, 2> pos {x, y};
-    rooms[pos] = &room;
+    rooms[pos] = room;
+}
+
+map<std::array<int, 2>, Room*> Room::getRooms() {
+    return rooms;
 }
