@@ -1,6 +1,7 @@
 #include <iostream>
 #include "room.h"
 #include "ncurses.h"
+#include "entity/player.h"
 #include <unistd.h>
 
 using namespace std;
@@ -62,17 +63,20 @@ int main() {
     }
     endwin();
 
+    Player player(1, 1);
     vector<Room> rooms;
 
     // Add all the rooms
-    rooms.emplace_back(5, 5, 1, 1);
-    rooms.emplace_back(2, 4, 1, 1);
-    rooms.emplace_back(10, 20, 1, 1);
+    rooms.emplace_back(5, 5);
+    rooms.emplace_back(2, 4);
+    rooms.emplace_back(10, 20);
 
     // Add rooms to rooms
     rooms[0].addRoom(&rooms[1], 3, 3);
     rooms[0].addRoom(&rooms[2], 4, 3);
     rooms[1].addRoom(&rooms[0], 2, 2);
+
+    rooms[0].addEntity(player);
 
     Room *currentRoom = &rooms[0];
     bool running = true;

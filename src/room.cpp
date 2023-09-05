@@ -6,23 +6,25 @@
 #include "iostream"
 #include "ncurses.h"
 
-using namespace std;
-
 Room::Room() {
-    height = 0;
-    width = 0;
-    x = 0;
-    y = 0;
-    rooms = {};
-
+    this->height = 0;
+    this->width = 0;
+    this->rooms = {};
+    this->entities = {};
 }
 
-Room::Room(int h, int w, int x, int y) {
-    height = h;
-    width = w;
-    this->x = x;
-    this->y = y;
-    rooms = {};
+Room::Room(int h, int w) {
+    this->height = h;
+    this->width = w;
+    this->rooms = {};
+    this->entities = {};
+}
+
+Room::Room(int h, int w, vector<Entity> entities) {
+    this->height = h;
+    this->width = w;
+    this->rooms = {};
+    this->entities = entities;
 }
 
 bool Room::render() {
@@ -31,12 +33,14 @@ bool Room::render() {
     clear();
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
-            if (i + 1 == y && j + 1 == x) { // Render player
-                printw("X ");
-            } else if (rooms.contains(std::array<int, 2>{j + 1, i + 1})) { // Render room entrances
-                printw("R ");
-            } else {  // Render floor
-                printw("0 ");
+            for (Entity entity : entities) {
+                if (i + 1 == entity.getX() && j + 1 == entity.getY()) { // Render player
+                    printw("X ");
+                } else if (rooms.contains(std::array<int, 2>{j + 1, i + 1})) { // Render room entrances
+                    printw("R ");
+                } else {  // Render floor
+                    printw("0 ");
+                }
             }
         }
         printw("\n");
@@ -48,34 +52,7 @@ bool Room::isOutsideBounds(int x, int y) {
     return (x > width || x < 1) || (y > height || y < 1);
 }
 
-Room *Room::handleMovement(int input) {
-    if (input == 'w' || input == KEY_UP) {
-        if (isOutsideBounds(x, y - 1)) {
-            return this;
-        }
-        y--;
-        changed = true;
-    } else if (input == 'a' || input == KEY_LEFT) {
-        if (isOutsideBounds(x - 1, y)) {
-            return this;
-        }
-        x--;
-        changed = true;
-    } else if (input == 's' || input == KEY_DOWN) {
-        if (isOutsideBounds(x, y + 1)) {
-            return this;
-        }
-        y++;
-        changed = true;
-    } else if (input == 'd' || input == KEY_RIGHT) {
-        if (isOutsideBounds(x + 1, y)) {
-            return this;
-        }
-        x++;
-        changed = true;
-    }
-    return this;
-}
+Room::
 
 void Room::setHeight(int h) {
     height = h;
@@ -93,22 +70,6 @@ int Room::getWidth() {
     return width;
 }
 
-void Room::setX(int x) {
-    this->x = x;
-}
-
-int Room::getX() {
-    return x;
-}
-
-void Room::setY(int y) {
-    this->y = y;
-}
-
-int Room::getY() {
-    return y;
-}
-
 void Room::addRoom(Room *room, int x, int y) {
     array<int, 2> pos{x, y};
     rooms[pos] = room;
@@ -116,4 +77,12 @@ void Room::addRoom(Room *room, int x, int y) {
 
 map<std::array<int, 2>, Room *> Room::getRooms() {
     return rooms;
+}
+
+void Room::addEntity(Entity entity) {
+    this->entities.emplace_back(entity);
+}
+
+vector<Entity> Room::getEntities() {
+    return entities;
 }
