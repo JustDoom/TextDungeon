@@ -23,10 +23,12 @@ public:
     Room();
     Room(int h, int w, int x, int y);
 
+    bool changed = true;
+
     // Methods
-    void render();
+    bool render();
     bool isOutsideBounds(int x, int y);
-    Room* handleMovement(std::string input);
+    Room* handleMovement(int input);
 
     // Getters and Setters
     void setHeight(int h);

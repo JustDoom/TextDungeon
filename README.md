@@ -6,7 +6,7 @@ This is just a C++ learning project
 - [ ] Custom map maker
 - [ ] Custom map saver
 - [x] Replace map in terminal instead of printing a new one
-- [ ] Cool menu
+- [x] Cool menu
 - [ ] Basic LAN multiplayer
 - [ ] Add "turns", each action will be a turn and thats when stuff happens
 - [ ] Other entities (enemies)

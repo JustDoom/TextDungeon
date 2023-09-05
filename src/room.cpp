@@ -4,6 +4,7 @@
 
 #include "room.h"
 #include "iostream"
+#include "ncurses.h"
 
 using namespace std;
 
@@ -13,6 +14,7 @@ Room::Room() {
     x = 0;
     y = 0;
     rooms = {};
+
 }
 
 Room::Room(int h, int w, int x, int y) {
@@ -23,65 +25,54 @@ Room::Room(int h, int w, int x, int y) {
     rooms = {};
 }
 
-void Room::render() {
-    system("clear"); // Apparently unsafe. look into alternatives
+bool Room::render() {
+    if (!changed) return false;
+    changed = false;
+    clear();
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
             if (i + 1 == y && j + 1 == x) { // Render player
-                cout << "x";
+                printw("X ");
             } else if (rooms.contains(std::array<int, 2>{j + 1, i + 1})) { // Render room entrances
-                cout << "R";
+                printw("R ");
             } else {  // Render floor
-                cout << "0";
+                printw("0 ");
             }
         }
-        cout << endl;
+        printw("\n");
     }
+    return true;
 }
 
 bool Room::isOutsideBounds(int x, int y) {
     return (x > width || x < 1) || (y > height || y < 1);
 }
 
-Room* Room::handleMovement(string input) {
-    // Loop through each move action
-    for (char i : input) {
-        if (i == 'w') {
-            if (isOutsideBounds(x, y - 1)) {
-                continue;
-            }
-            y--;
-        } else if (i == 'a') {
-            if (isOutsideBounds(x - 1, y)) {
-                continue;
-            }
-            x--;
-        } else if (i == 's') {
-            if (isOutsideBounds(x, y + 1)) {
-                continue;
-            }
-            y++;
-        } else if (i == 'd') {
-            if (isOutsideBounds(x + 1, y)) {
-                continue;
-            }
-            x++;
-        } else if (i == 'e' && rooms.contains(array<int, 2>{x, y})) {
-            // Get the room the player attempts to enter
-            Room* room = rooms.at(array<int, 2>{x, y});
-            // Loop through the rooms in the next room to find the exit of the current room
-            for (auto & it : room->rooms) {
-                if (it.second != this) {
-                    continue;
-                }
-
-                // Set position in next room to the exit
-                room->setX(it.first[0]);
-                room->setY(it.first[1]);
-                break;
-            }
-            return room;
+Room *Room::handleMovement(int input) {
+    if (input == 'w' || input == KEY_UP) {
+        if (isOutsideBounds(x, y - 1)) {
+            return this;
         }
+        y--;
+        changed = true;
+    } else if (input == 'a' || input == KEY_LEFT) {
+        if (isOutsideBounds(x - 1, y)) {
+            return this;
+        }
+        x--;
+        changed = true;
+    } else if (input == 's' || input == KEY_DOWN) {
+        if (isOutsideBounds(x, y + 1)) {
+            return this;
+        }
+        y++;
+        changed = true;
+    } else if (input == 'd' || input == KEY_RIGHT) {
+        if (isOutsideBounds(x + 1, y)) {
+            return this;
+        }
+        x++;
+        changed = true;
     }
     return this;
 }
@@ -118,11 +109,11 @@ int Room::getY() {
     return y;
 }
 
-void Room::addRoom(Room* room, int x, int y) {
-    array<int, 2> pos {x, y};
+void Room::addRoom(Room *room, int x, int y) {
+    array<int, 2> pos{x, y};
     rooms[pos] = room;
 }
 
-map<std::array<int, 2>, Room*> Room::getRooms() {
+map<std::array<int, 2>, Room *> Room::getRooms() {
     return rooms;
 }
