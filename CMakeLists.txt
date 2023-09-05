@@ -1,9 +1,11 @@
-cmake_minimum_required(VERSION 3.25)
-project(TextDungeon)
-
+cmake_minimum_required(VERSION 3.20)
+project(TextDungeon
+LANGUAGES CXX
+VERSION 1.0
+)
 set(CMAKE_CXX_STANDARD 23)
 
-add_executable(TextDungeon src/main.cpp src/room.h src/room.cpp)
+add_subdirectory(src)
 
 find_package(Curses REQUIRED)
 target_link_libraries(TextDungeon PRIVATE ${CURSES_LIBRARIES})
