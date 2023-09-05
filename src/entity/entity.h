@@ -5,7 +5,6 @@
 #ifndef TEXTDUNGEON_ENTITY_H
 #define TEXTDUNGEON_ENTITY_H
 
-
 class Entity {
 private:
     int x;

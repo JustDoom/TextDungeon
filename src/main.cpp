@@ -1,8 +1,6 @@
-#include <iostream>
-#include "room.h"
 #include "ncurses.h"
-#include "entity/player.h"
 #include <unistd.h>
+#include "game.h"
 
 using namespace std;
 
@@ -63,58 +61,8 @@ int main() {
     }
     endwin();
 
-    Player player(1, 1);
-    vector<Room> rooms;
-
-    // Add all the rooms
-    rooms.emplace_back(5, 5);
-    rooms.emplace_back(2, 4);
-    rooms.emplace_back(10, 20);
-
-    // Add rooms to rooms
-    rooms[0].addRoom(&rooms[1], 3, 3);
-    rooms[0].addRoom(&rooms[2], 4, 3);
-    rooms[1].addRoom(&rooms[0], 2, 2);
-
-    rooms[0].addEntity(player);
-
-    Room *currentRoom = &rooms[0];
-    bool running = true;
-
-    initscr();
-    noecho();
-    timeout(0);
-    keypad(stdscr, TRUE);
-    scrollok(stdscr, TRUE);
-
-    // Main loop
-    while (running) {
-        currentRoom->render();
-
-        int ch = getch();
-        if (ch != ERR) {
-            currentRoom = currentRoom->handleMovement(ch);
-            if ((ch == 'e' || ch == '\n') && currentRoom->getRooms().contains(array<int, 2>{currentRoom->getX(), currentRoom->getY()})) {
-                // Get the room the player attempts to enter
-                Room *room = currentRoom->getRooms().at(array<int, 2>{currentRoom->getX(), currentRoom->getY()});
-                // Loop through the rooms in the next room to find the exit of the current room
-                for (auto &it: room->getRooms()) {
-                    if (it.second != currentRoom) {
-                        continue;
-                    }
-
-                    // Set position in next room to the exit
-                    room->setX(it.first[0]);
-                    room->setY(it.first[1]);
-                    break;
-                }
-                currentRoom->changed = true;
-                currentRoom = room;
-            }
-        }
-
-        usleep(10000); // Prevent insane CPU usage
-    }
+    Game game;
+    game.start();
 
     return 0;
 }

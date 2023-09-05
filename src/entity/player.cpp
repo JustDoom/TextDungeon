@@ -9,31 +9,35 @@ Player::Player(int x, int y) : Entity(x, y) {
 
 }
 
-void Player::handleMovement(int input) {
+void Player::handleMovement(int input, Room* room) {
     if (input == 'w' || input == KEY_UP) {
-        if (isOutsideBounds(x, y - 1)) {
-            return this;
+        if (room->isOutsideBounds(getX(), getY() - 1)) {
+            return;
         }
-        y--;
-        changed = true;
+        setY(getY() - 1);
+        room->changed = true;
     } else if (input == 'a' || input == KEY_LEFT) {
-        if (isOutsideBounds(x - 1, y)) {
-            return this;
+        if (room->isOutsideBounds(getX() - 1, getY())) {
+            return;
         }
-        x--;
-        changed = true;
+        setX(getX() - 1);;
+        room->changed = true;
     } else if (input == 's' || input == KEY_DOWN) {
-        if (isOutsideBounds(x, y + 1)) {
-            return this;
+        if (room->isOutsideBounds(getX(), getY() + 1)) {
+            return;
         }
-        y++;
-        changed = true;
+        setY(getY() + 1);
+        room->changed = true;
     } else if (input == 'd' || input == KEY_RIGHT) {
-        if (isOutsideBounds(x + 1, y)) {
-            return this;
+        if (room->isOutsideBounds(getX() + 1, getY())) {
+            return;
         }
-        x++;
-        changed = true;
+        setX(getX() + 1);
+        room->changed = true;
     }
-    return this;
+}
+
+void Player::input(int ch) {
+    handleMovement(ch, nullptr);
+    exit(1);
 }

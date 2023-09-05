@@ -5,4 +5,7 @@ add_executable(TextDungeon
         entity/player.h
         entity/player.cpp
         entity/entity.cpp
-        entity/entity.h)
+        entity/entity.h
+        listener/input_listener.cpp
+        listener/input_listener.h
+        game.cpp)
