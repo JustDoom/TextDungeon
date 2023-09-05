@@ -5,7 +5,7 @@ on:
     branches:
       - master
 
-obs:
+jobs:
   build:
     name: Build on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
