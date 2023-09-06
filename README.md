@@ -14,3 +14,6 @@ This is just a C++ learning project
 - [ ] Some sort of inventory
 - [ ] Different world render types - Render only room border and entities, Render floor and not border etc
 - [ ] Saving "progress"
+- [ ] Settings
+  - [ ] Modify colours
+  - [ ] World render type
