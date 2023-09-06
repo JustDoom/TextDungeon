@@ -36,15 +36,15 @@ bool Room::render() {
     clear();
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
-            bool rendered = false;
+            Entity* priority = nullptr;
             for (Entity* entity : entities) {
                 if (j + 1 == entity->getX() && i + 1 == entity->getY()) { // Render player
-                    entity->render();
-                    rendered = true;
-                    break;
+                    if (priority != nullptr && entity->getPriority() > priority->getPriority()) continue;
+                    priority = entity;
                 }
             }
-            if (!rendered) printw("0 ");
+            if (priority != nullptr) priority->render();
+            else printw("0 ");
         }
         printw("\n");
     }

@@ -5,11 +5,13 @@
 #include "renderable.h"
 #include "ncurses.h"
 
-Renderable::Renderable(char ch) {
+Renderable::Renderable(int priority, char ch) {
+    this->priority = priority;
     this->ch = ch;
 }
 
-Renderable::Renderable(char ch, int colour) {
+Renderable::Renderable(int priority, char ch, int colour) {
+    this->priority = priority;
     this->colour = colour;
     this->ch = ch;
 }
@@ -34,4 +36,12 @@ void Renderable::setColour(int colour) {
 
 int Renderable::getColour() {
     return this->colour;
+}
+
+void Renderable::setPriority(int priority) {
+    this->priority = priority;
+}
+
+int Renderable::getPriority() {
+    return this->priority;
 }

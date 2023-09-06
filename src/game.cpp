@@ -20,7 +20,7 @@ void Game::start() {
     running = true;
 
     vector<InputListener*> inputListeners;
-    Player player('X', COLOR_GREEN, 1, 1);
+    Player player(1, 'X', COLOR_GREEN, 1, 1);
     this->player = &player;
     inputListeners.push_back(&player);
 
@@ -35,10 +35,10 @@ void Game::start() {
     inputListeners.push_back(&rooms["test3"]);
 
     // Create room switch entities
-    RoomSwitch roomSwitch = RoomSwitch('R', COLOR_BLUE, &rooms["test2"], 3, 3);
-    RoomSwitch roomSwitch2 = RoomSwitch('R', COLOR_BLUE, &rooms["test"], 2, 2);
-    RoomSwitch roomSwitch3 = RoomSwitch('R', COLOR_BLUE, &rooms["test3"], 5, 2);
-    RoomSwitch roomSwitch4 = RoomSwitch('R', COLOR_BLUE, &rooms["test2"], 2, 7);
+    RoomSwitch roomSwitch = RoomSwitch(2, 'R', COLOR_BLUE, &rooms["test2"], 3, 3);
+    RoomSwitch roomSwitch2 = RoomSwitch(2, 'R', COLOR_BLUE, &rooms["test"], 2, 2);
+    RoomSwitch roomSwitch3 = RoomSwitch(2, 'R', COLOR_BLUE, &rooms["test3"], 5, 2);
+    RoomSwitch roomSwitch4 = RoomSwitch(2, 'R', COLOR_BLUE, &rooms["test2"], 2, 7);
 
     roomSwitch.setPartner(&roomSwitch2);
     roomSwitch2.setPartner(&roomSwitch);

@@ -10,10 +10,11 @@ class Renderable {
 private:
     char ch;
     int colour;
+    int priority;
 
 public:
-    Renderable(char ch);
-    Renderable(char ch, int colour);
+    Renderable(int priority, char ch);
+    Renderable(int priority, char ch, int colour);
 
     void render();
 
@@ -21,6 +22,8 @@ public:
     char getChar();
     void setColour(int colour);
     int getColour();
+    void setPriority(int priority);
+    int getPriority();
 };
 
 

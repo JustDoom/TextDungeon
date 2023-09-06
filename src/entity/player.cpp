@@ -5,7 +5,7 @@
 #include "player.h"
 #include "ncurses.h"
 
-Player::Player(char ch, int colour, int x, int y) : Entity(ch, colour, x, y) {}
+Player::Player(int priority, char ch, int colour, int x, int y) : Entity(priority, ch, colour, x, y) {}
 
 void Player::handleMovement(int input, Room* room) {
     if (input == 'w' || input == KEY_UP) {

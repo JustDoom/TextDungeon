@@ -14,7 +14,7 @@ private:
     char ch;
 
 public:
-    Entity(char ch, int colour, int x, int y);
+    Entity(int priority, char ch, int colour, int x, int y);
     virtual ~Entity() = default;
 
     void setX(int x);
