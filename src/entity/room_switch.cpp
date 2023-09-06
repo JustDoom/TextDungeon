@@ -5,7 +5,7 @@
 #include "room_switch.h"
 #include "entity.h"
 
-RoomSwitch::RoomSwitch(char ch, Room* connected, int x, int y) : Entity(ch, x, y) {
+RoomSwitch::RoomSwitch(char ch, int colour, Room* connected, int x, int y) : Entity(ch, colour, x, y) {
     this->connectedRoom = connected;
 }
 

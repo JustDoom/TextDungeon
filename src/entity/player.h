@@ -14,7 +14,7 @@ class Room;
 class Player : public InputListener, public Entity {
 private:
 public:
-    Player(char ch, int x, int y);
+    Player(char ch, int colour, int x, int y);
 
     void handleMovement(int input, Room* room);
 

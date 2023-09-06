@@ -20,7 +20,7 @@ void Game::start() {
     running = true;
 
     vector<InputListener*> inputListeners;
-    Player player('X', 1, 1);
+    Player player('X', COLOR_GREEN, 1, 1);
     this->player = &player;
     inputListeners.push_back(&player);
 
@@ -35,10 +35,10 @@ void Game::start() {
     inputListeners.push_back(&rooms["test3"]);
 
     // Create room switch entities
-    RoomSwitch roomSwitch = RoomSwitch('R', &rooms["test2"], 3, 3);
-    RoomSwitch roomSwitch2 = RoomSwitch('R', &rooms["test"], 2, 2);
-    RoomSwitch roomSwitch3 = RoomSwitch('R', &rooms["test3"], 5, 2);
-    RoomSwitch roomSwitch4 = RoomSwitch('R', &rooms["test2"], 2, 7);
+    RoomSwitch roomSwitch = RoomSwitch('R', COLOR_BLUE, &rooms["test2"], 3, 3);
+    RoomSwitch roomSwitch2 = RoomSwitch('R', COLOR_BLUE, &rooms["test"], 2, 2);
+    RoomSwitch roomSwitch3 = RoomSwitch('R', COLOR_BLUE, &rooms["test3"], 5, 2);
+    RoomSwitch roomSwitch4 = RoomSwitch('R', COLOR_BLUE, &rooms["test2"], 2, 7);
 
     roomSwitch.setPartner(&roomSwitch2);
     roomSwitch2.setPartner(&roomSwitch);
@@ -60,9 +60,14 @@ void Game::start() {
     start_color();
 
     // Colours
-    init_pair(1, COLOR_GREEN, COLOR_BLACK);
+    init_pair(1, COLOR_BLACK, COLOR_BLACK);
     init_pair(2, COLOR_RED, COLOR_BLACK);
-    init_pair(3, COLOR_BLUE, COLOR_BLACK);
+    init_pair(3, COLOR_GREEN, COLOR_BLACK);
+    init_pair(4, COLOR_YELLOW, COLOR_BLACK);
+    init_pair(5, COLOR_BLUE, COLOR_BLACK);
+    init_pair(6, COLOR_MAGENTA, COLOR_BLACK);
+    init_pair(7, COLOR_CYAN, COLOR_BLACK);
+    init_pair(8, COLOR_WHITE, COLOR_BLACK);
 
     noecho();
     timeout(0);

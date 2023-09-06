@@ -9,14 +9,18 @@
 class Renderable {
 private:
     char ch;
+    int colour;
 
 public:
     Renderable(char ch);
+    Renderable(char ch, int colour);
 
     void render();
 
     void setChar(char ch);
     char getChar();
+    void setColour(int colour);
+    int getColour();
 };
 
 

@@ -14,7 +14,7 @@ private:
     RoomSwitch* partner;
 
 public:
-    RoomSwitch(char ch, Room* connected, int x, int y);
+    RoomSwitch(char ch, int colour, Room* connected, int x, int y);
 
     Room* getConnectedRoom();
     void setPartner(RoomSwitch* partner);
