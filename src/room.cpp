@@ -6,6 +6,7 @@
 #include "ncurses.h"
 #include "game.h"
 #include "entity/entity.h"
+#include "iostream"
 
 using namespace std;
 
@@ -23,7 +24,7 @@ Room::Room(int h, int w) : InputListener() {
     this->entities = {};
 }
 
-Room::Room(int h, int w, vector<Entity> entities) : InputListener() {
+Room::Room(int h, int w, vector<Entity*> entities) : InputListener() {
     this->height = h;
     this->width = w;
     this->rooms = {};
@@ -31,14 +32,16 @@ Room::Room(int h, int w, vector<Entity> entities) : InputListener() {
 }
 
 bool Room::render() {
-    if (!changed) return false;
-    changed = false;
+    if (!changed) {
+        return false;
+    }
     clear();
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
-            for (Entity entity : entities) {
-                if (i + 1 == entity.getX() && j + 1 == entity.getY()) { // Render player
+            for (Entity* entity : entities) {
+                if (j + 1 == entity->getX() && i + 1 == entity->getY()) { // Render player
                     printw("X ");
+                    break;
                 } else if (rooms.contains(array<int, 2>{j + 1, i + 1})) { // Render room entrances
                     printw("R ");
                 } else {  // Render floor
@@ -48,11 +51,12 @@ bool Room::render() {
         }
         printw("\n");
     }
+    changed = false;
     return true;
 }
 
 void Room::move() {
-    for (Entity entity : entities) {
+    for (Entity* entity : entities) {
 
     }
 }
@@ -62,15 +66,17 @@ bool Room::isOutsideBounds(int x, int y) {
 }
 
 void Room::input(int ch) {
-    Game* game;
-    game = new Game;
+
+}
+
+void Room::input(int ch, Game* game) {
     if (game->getCurrentRoom() != this) return; // TODO: do something to only send it to the players room
     if ((ch == 'e' || ch == '\n') && rooms.contains(array<int, 2>{game->player->getX(), game->player->getY()})) {
         // Get the room the player attempts to enter
         Room *room = rooms.at(array<int, 2>{game->player->getX(), game->player->getY()});
         // Loop through the rooms in the next room to find the exit of the current room
         for (auto &it: room->getRooms()) {
-            if (it.second != game->getCurrentRoom()) {
+            if (it.second != this) {
                 continue;
             }
 
@@ -79,9 +85,10 @@ void Room::input(int ch) {
             game->player->setY(it.first[1]);
             break;
         }
-        game->getCurrentRoom()->changed = true;
-//        currentRoom->changed = true;
+        room->addEntity(game->player);
+        removeEntity(game->player);
         game->setCurrentRoom(room);
+        room->changed = true;
     }
 }
 
@@ -110,10 +117,17 @@ map<array<int, 2>, Room *> Room::getRooms() {
     return rooms;
 }
 
-void Room::addEntity(Entity entity) {
-    this->entities.emplace_back(entity);
+void Room::addEntity(Entity* entity) {
+    this->entities.push_back(entity);
 }
 
-vector<Entity> Room::getEntities() {
+void Room::removeEntity(Entity *entity) {
+    auto v = remove(this->entities.begin(), this->entities.end(), entity);
+    if (v != this->entities.end()) {
+        this->entities.erase(v); // Remove the element
+    }
+}
+
+vector<Entity*> Room::getEntities() {
     return entities;
 }

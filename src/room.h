@@ -14,6 +14,9 @@
 
 using namespace std;
 
+class Game;
+class InputListener;
+
 class Room : public InputListener {
 private:
     int height;
@@ -21,7 +24,7 @@ private:
 
     map<array<int, 2>, Room*> rooms;
 
-    vector<Entity> entities;
+    vector<Entity*> entities;
 
 
 public:
@@ -29,7 +32,7 @@ public:
 
     Room();
     Room(int h, int w);
-    Room(int h, int w, vector<Entity> entities);
+    Room(int h, int w, vector<Entity*> entities);
 
     bool changed = true;
 
@@ -39,6 +42,7 @@ public:
     bool isOutsideBounds(int x, int y);
 
     void input(int ch) override;
+    void input(int ch, Game* game);
 
     // Getters and Setters
     void setHeight(int h);
@@ -47,8 +51,9 @@ public:
     int getWidth();
     void addRoom(Room* room, int x, int y);
     map<array<int, 2>, Room*> getRooms();
-    void addEntity(Entity entity);
-    vector<Entity> getEntities();
+    void addEntity(Entity* entity);
+    void removeEntity(Entity* entity);
+    vector<Entity*> getEntities();
 };
 
 #endif

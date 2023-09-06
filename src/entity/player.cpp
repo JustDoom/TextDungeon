@@ -38,6 +38,6 @@ void Player::handleMovement(int input, Room* room) {
 }
 
 void Player::input(int ch) {
-    handleMovement(ch, nullptr);
-    exit(1);
+    //handleMovement(ch, nullptr); // This is the current movement issue
+    //exit(1);
 }

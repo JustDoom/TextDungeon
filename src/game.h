@@ -8,6 +8,7 @@
 #include "room.h"
 #include "entity/player.h"
 #include "vector"
+#include "string"
 
 using namespace std;
 
@@ -18,7 +19,7 @@ class Game {
 private:
     bool running;
     Room* room;
-    vector<Room> rooms;
+    map<string, Room> rooms;
 
 public:
     Game();

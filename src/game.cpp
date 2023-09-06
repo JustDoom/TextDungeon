@@ -7,6 +7,9 @@
 #include "ncurses.h"
 #include "memory"
 #include "listener/input_listener.h"
+#include "iostream"
+
+using namespace std;
 
 Game::Game() {
     this->rooms = {};
@@ -21,22 +24,23 @@ void Game::start() {
     inputListeners.push_back(&player);
 
     // Add all the rooms
-    rooms.emplace_back(5, 5);
-    room = &rooms[0];
-    rooms.emplace_back(2, 4);
-    rooms.emplace_back(10, 20);
+    rooms["test"] = Room(5, 5);
+    rooms["test2"] = Room(2, 5);
+    rooms["test3"] = Room(10, 20);
 
     // Add room to listener
-    inputListeners.push_back(&rooms[0]);
-    inputListeners.push_back(&rooms[1]);
-    inputListeners.push_back(&rooms[2]);
+    inputListeners.push_back(&rooms["test"]);
+    inputListeners.push_back(&rooms["test2"]);
+    inputListeners.push_back(&rooms["test3"]);
 
     // Add rooms to rooms
-    rooms[0].addRoom(&rooms[1], 3, 3);
-    rooms[0].addRoom(&rooms[2], 4, 3);
-    rooms[1].addRoom(&rooms[0], 2, 2);
+    rooms["test"].addRoom(&rooms["test2"], 3, 3);
+    rooms["test"].addRoom(&rooms["test3"], 4, 3);
+    rooms["test2"].addRoom(&rooms["test"], 2, 2);
 
-    rooms[0].addEntity(player);
+    // Setup current room
+    room = &rooms["test"];
+    rooms["test"].addEntity(&player);
 
     initscr();
     noecho();
@@ -52,8 +56,15 @@ void Game::start() {
         if (ch != ERR) {
             room->move();
             for (InputListener* listener : inputListeners) {
-                listener->input(ch);
+                if (auto* v = dynamic_cast<Player*>(listener)) {
+                    v->handleMovement(ch, room);
+                }
+//                else if (auto* e = dynamic_cast<Room*>(listener)) {
+//                    e->input(ch, this);
+//                }
             }
+
+            room->input(ch, this);
         }
 
         usleep(10000); // Prevent insane CPU usage
@@ -74,6 +85,7 @@ bool Game::isRunning() {
 
 void Game::setCurrentRoom(Room *room) {
     this->room = room;
+    room->changed = true;
 }
 
 Room* Game::getCurrentRoom() {
