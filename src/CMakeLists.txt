@@ -10,4 +10,6 @@ add_executable(TextDungeon
         listener/input_listener.h
         game.cpp
         render/renderable.cpp
-        render/renderable.h)
+        render/renderable.h
+        entity/room_switch.cpp
+        entity/room_switch.h)
