@@ -3,7 +3,7 @@
 //
 
 #include "game.h"
-#include "room.h"
+#include "room/room.h"
 #include "ncurses.h"
 #include "memory"
 #include "listener/input_listener.h"
@@ -19,7 +19,7 @@ void Game::start() {
     running = true;
 
     vector<InputListener*> inputListeners;
-    Player player(1, 1);
+    Player player('X', 1, 1);
     this->player = &player;
     inputListeners.push_back(&player);
 
@@ -43,6 +43,13 @@ void Game::start() {
     rooms["test"].addEntity(&player);
 
     initscr();
+    start_color();
+
+    // Colours
+    init_pair(1, COLOR_GREEN, COLOR_BLACK);
+    init_pair(2, COLOR_RED, COLOR_BLACK);
+    init_pair(3, COLOR_BLUE, COLOR_BLACK);
+
     noecho();
     timeout(0);
     keypad(stdscr, TRUE);

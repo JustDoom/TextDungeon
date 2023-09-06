@@ -5,7 +5,7 @@
 #ifndef TEXTDUNGEON_GAME_H
 #define TEXTDUNGEON_GAME_H
 
-#include "room.h"
+#include "room/room.h"
 #include "entity/player.h"
 #include "vector"
 #include "string"

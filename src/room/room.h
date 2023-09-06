@@ -8,9 +8,9 @@
 #include <map>
 #include "vector"
 #include "array"
-#include "entity/entity.h"
-#include "listener/input_listener.h"
-#include "game.h"
+#include "../entity/entity.h"
+#include "../listener/input_listener.h"
+#include "../game.h"
 
 using namespace std;
 
@@ -22,7 +22,7 @@ private:
     int height;
     int width;
 
-    map<array<int, 2>, Room*> rooms;
+    map<array<int, 2>, Room*> rooms; // TODO: make this its own class
 
     vector<Entity*> entities;
 

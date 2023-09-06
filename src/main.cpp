@@ -6,8 +6,6 @@ using namespace std;
 
 int main() {
 
-    // TODO: Make a player Object so it can support multiple players
-
     int selectedOption = 0;
     int lastOption;
 

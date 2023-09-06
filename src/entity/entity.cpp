@@ -4,7 +4,7 @@
 
 #include "entity.h"
 
-Entity::Entity(int x, int y) {
+Entity::Entity(char ch, int x, int y) : Renderable(ch) {
     this->x = x;
     this->y = y;
 }

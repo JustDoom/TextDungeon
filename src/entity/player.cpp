@@ -5,7 +5,7 @@
 #include "player.h"
 #include "ncurses.h"
 
-Player::Player(int x, int y) : Entity(x, y) {
+Player::Player(char ch, int x, int y) : Entity(ch, x, y) {
 
 }
 

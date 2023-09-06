@@ -4,8 +4,8 @@
 
 #include "room.h"
 #include "ncurses.h"
-#include "game.h"
-#include "entity/entity.h"
+#include "../game.h"
+#include "../entity/entity.h"
 #include "iostream"
 
 using namespace std;
@@ -40,10 +40,12 @@ bool Room::render() {
         for (int j = 0; j < width; j++) {
             for (Entity* entity : entities) {
                 if (j + 1 == entity->getX() && i + 1 == entity->getY()) { // Render player
-                    printw("X ");
+                    entity->render();
                     break;
                 } else if (rooms.contains(array<int, 2>{j + 1, i + 1})) { // Render room entrances
+                    attron(COLOR_PAIR(3) | A_BOLD);
                     printw("R ");
+                    attroff(COLOR_PAIR(3) | A_BOLD);
                 } else {  // Render floor
                     printw("0 ");
                 }
@@ -70,7 +72,7 @@ void Room::input(int ch) {
 }
 
 void Room::input(int ch, Game* game) {
-    if (game->getCurrentRoom() != this) return; // TODO: do something to only send it to the players room
+    if (game->getCurrentRoom() != this) return;
     if ((ch == 'e' || ch == '\n') && rooms.contains(array<int, 2>{game->player->getX(), game->player->getY()})) {
         // Get the room the player attempts to enter
         Room *room = rooms.at(array<int, 2>{game->player->getX(), game->player->getY()});

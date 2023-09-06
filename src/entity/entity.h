@@ -5,18 +5,22 @@
 #ifndef TEXTDUNGEON_ENTITY_H
 #define TEXTDUNGEON_ENTITY_H
 
-class Entity {
+#include "../render/renderable.h"
+
+class Entity : public Renderable {
 private:
     int x;
     int y;
+    char ch;
 
 public:
-    Entity(int x, int y);
+    Entity(char ch, int x, int y);
 
     void setX(int x);
     int getX();
     void setY(int y);
     int getY();
+
 };
 
 

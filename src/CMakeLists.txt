@@ -1,11 +1,13 @@
 add_executable(TextDungeon
         main.cpp
-        room.cpp
-        room.h
+        room/room.cpp
+        room/room.h
         entity/player.h
         entity/player.cpp
         entity/entity.cpp
         entity/entity.h
         listener/input_listener.cpp
         listener/input_listener.h
-        game.cpp)
+        game.cpp
+        render/renderable.cpp
+        render/renderable.h)
