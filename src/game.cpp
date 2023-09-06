@@ -8,6 +8,7 @@
 #include "memory"
 #include "listener/input_listener.h"
 #include "iostream"
+#include "entity/room_switch.h"
 
 using namespace std;
 
@@ -33,15 +34,28 @@ void Game::start() {
     inputListeners.push_back(&rooms["test2"]);
     inputListeners.push_back(&rooms["test3"]);
 
+    // Create room switch entities
+    RoomSwitch roomSwitch = RoomSwitch('R', &rooms["test2"], 3, 3);
+    RoomSwitch roomSwitch2 = RoomSwitch('R', &rooms["test"], 2, 2);
+    RoomSwitch roomSwitch3 = RoomSwitch('R', &rooms["test3"], 5, 2);
+    RoomSwitch roomSwitch4 = RoomSwitch('R', &rooms["test2"], 2, 7);
+
+    roomSwitch.setPartner(&roomSwitch2);
+    roomSwitch2.setPartner(&roomSwitch);
+    roomSwitch3.setPartner(&roomSwitch4);
+    roomSwitch4.setPartner(&roomSwitch3);
+
     // Add rooms to rooms
-    rooms["test"].addRoom(&rooms["test2"], 3, 3);
-    rooms["test"].addRoom(&rooms["test3"], 4, 3);
-    rooms["test2"].addRoom(&rooms["test"], 2, 2);
+    rooms["test"].addEntity(&roomSwitch);
+    rooms["test2"].addEntity(&roomSwitch2);
+    rooms["test2"].addEntity(&roomSwitch3);
+    rooms["test3"].addEntity(&roomSwitch4);
 
     // Setup current room
     room = &rooms["test"];
     rooms["test"].addEntity(&player);
 
+    // Setup ncurses
     initscr();
     start_color();
 

@@ -22,14 +22,9 @@ private:
     int height;
     int width;
 
-    map<array<int, 2>, Room*> rooms; // TODO: make this its own class
-
     vector<Entity*> entities;
 
-
 public:
-    //static Game* game;
-
     Room();
     Room(int h, int w);
     Room(int h, int w, vector<Entity*> entities);
@@ -49,8 +44,6 @@ public:
     int getHeight();
     void setWidth(int w);
     int getWidth();
-    void addRoom(Room* room, int x, int y);
-    map<array<int, 2>, Room*> getRooms();
     void addEntity(Entity* entity);
     void removeEntity(Entity* entity);
     vector<Entity*> getEntities();

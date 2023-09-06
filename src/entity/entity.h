@@ -15,6 +15,7 @@ private:
 
 public:
     Entity(char ch, int x, int y);
+    virtual ~Entity() = default;
 
     void setX(int x);
     int getX();

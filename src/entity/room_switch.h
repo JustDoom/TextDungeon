@@ -6,10 +6,19 @@
 #define TEXTDUNGEON_ROOM_SWITCH_H
 
 #include "entity.h"
+#include "../room/room.h"
 
-class RoomSwitch : Entity {
+class RoomSwitch : public Entity {
 private:
+    Room* connectedRoom;
+    RoomSwitch* partner;
+
 public:
+    RoomSwitch(char ch, Room* connected, int x, int y);
+
+    Room* getConnectedRoom();
+    void setPartner(RoomSwitch* partner);
+    RoomSwitch* getPartner();
 };
 
 
