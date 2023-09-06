@@ -7,7 +7,7 @@
 #include "ncurses.h"
 #include "memory"
 #include "listener/input_listener.h"
-#include "iostream"
+#include "entity/enemy.h"
 #include "entity/room_switch.h"
 
 using namespace std;
@@ -50,6 +50,10 @@ void Game::start() {
     rooms["test2"].addEntity(&roomSwitch2);
     rooms["test2"].addEntity(&roomSwitch3);
     rooms["test3"].addEntity(&roomSwitch4);
+
+    // Enemies
+    Enemy enemy(0, 'E', COLOR_RED, 1, 2); // TODO: collision detection
+    rooms["test"].addEntity(&enemy);
 
     // Setup current room
     room = &rooms["test"];

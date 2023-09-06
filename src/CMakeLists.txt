@@ -12,4 +12,6 @@ add_executable(TextDungeon
         render/renderable.cpp
         render/renderable.h
         entity/room_switch.cpp
-        entity/room_switch.h)
+        entity/room_switch.h
+        entity/enemy.cpp
+        entity/enemy.h)
