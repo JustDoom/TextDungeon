@@ -5,23 +5,21 @@
 #ifndef TEXTDUNGEON_ENTITY_H
 #define TEXTDUNGEON_ENTITY_H
 
-#include "../render/renderable.h"
+#include "../component/component.h"
+#include "vector"
+#include "memory"
 
-class Entity : public Renderable {
+using namespace std;
+
+class Entity {
 private:
-    int x;
-    int y;
-    char ch;
+    vector<shared_ptr<Component>> components;
 
 public:
-    Entity(int priority, char ch, int colour, int x, int y);
-    virtual ~Entity() = default;
+    void addComponent(shared_ptr<Component> component);
+    template <typename T> shared_ptr<T> getComponent();
 
-    void setX(int x);
-    int getX();
-    void setY(int y);
-    int getY();
-
+    void update(); // Might all be handled by systems
 };
 
 

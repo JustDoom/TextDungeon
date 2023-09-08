@@ -4,23 +4,25 @@
 
 #include "entity.h"
 
-Entity::Entity(int priority, char ch, int colour, int x, int y) : Renderable(priority, ch, colour) {
-    this->x = x;
-    this->y = y;
+using namespace std;
+
+void Entity::addComponent(shared_ptr<Component> component) {
+    component->owner = this;
+    components.push_back(component);
 }
 
-void Entity::setX(int x) {
-    this->x = x;
+template <typename T>
+shared_ptr<T> Entity::getComponent() {
+    for (auto& component : this->components) {
+        if (auto casted = std::dynamic_pointer_cast<T>(component)) {
+            return casted;
+        }
+    }
+    return nullptr;
 }
 
-int Entity::getX() {
-    return x;
-}
-
-void Entity::setY(int y) {
-    this->y = y;
-}
-
-int Entity::getY() {
-    return y;
+void Entity::update() {
+    for (auto& component : components) {
+        //component->update();
+    }
 }

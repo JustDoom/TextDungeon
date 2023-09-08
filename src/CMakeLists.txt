@@ -14,4 +14,10 @@ add_executable(TextDungeon
         entity/room_switch.cpp
         entity/room_switch.h
         entity/enemy.cpp
-        entity/enemy.h)
+        entity/enemy.h
+        component/component.h
+        component/position_component.cpp
+        component/position_component.h
+        system/system.h
+        system/input_system.cpp
+        system/input_system.h)

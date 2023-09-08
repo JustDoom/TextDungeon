@@ -82,20 +82,20 @@ void Game::start() {
     while (running) {
         room->render();
 
-        int ch = getch();
-        if (ch != ERR) {
-            room->move();
-            for (InputListener* listener : inputListeners) {
-                if (auto* v = dynamic_cast<Player*>(listener)) {
-                    v->handleMovement(ch, room);
-                }
-//                else if (auto* e = dynamic_cast<Room*>(listener)) {
-//                    e->input(ch, this);
+//        int ch = getch();
+//        if (ch != ERR) {
+//            room->move();
+//            for (InputListener* listener : inputListeners) {
+//                if (auto* v = dynamic_cast<Player*>(listener)) {
+//                    v->handleMovement(ch, room);
 //                }
-            }
-
-            room->input(ch, this);
-        }
+////                else if (auto* e = dynamic_cast<Room*>(listener)) {
+////                    e->input(ch, this);
+////                }
+//            }
+//
+//            room->input(ch, this);
+//        }
 
         usleep(10000); // Prevent insane CPU usage
     }
