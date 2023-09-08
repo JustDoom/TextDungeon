@@ -11,6 +11,8 @@
 
 using namespace std;
 
+class Component;
+
 class Entity {
 private:
     vector<shared_ptr<Component>> components;
@@ -21,6 +23,5 @@ public:
 
     void update(); // Might all be handled by systems
 };
-
 
 #endif //TEXTDUNGEON_ENTITY_H

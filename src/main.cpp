@@ -1,6 +1,8 @@
 #include "ncurses.h"
 #include <unistd.h>
 #include "game.h"
+#include <thread>
+#include <chrono>
 
 using namespace std;
 
@@ -55,7 +57,7 @@ int main() {
             }
         }
 
-        usleep(10000); // Prevent insane CPU usage
+        this_thread::sleep_for(chrono::milliseconds(10)); // Prevent insane CPU usage
     }
     endwin();
 

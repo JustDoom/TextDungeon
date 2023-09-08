@@ -2,8 +2,6 @@ add_executable(TextDungeon
         main.cpp
         room/room.cpp
         room/room.h
-        entity/player.h
-        entity/player.cpp
         entity/entity.cpp
         entity/entity.h
         listener/input_listener.cpp
@@ -11,10 +9,6 @@ add_executable(TextDungeon
         game.cpp
         render/renderable.cpp
         render/renderable.h
-        entity/room_switch.cpp
-        entity/room_switch.h
-        entity/enemy.cpp
-        entity/enemy.h
         component/component.h
         component/position_component.cpp
         component/position_component.h

@@ -1,0 +1,67 @@
+name: Build and Compile CMake C++ Project
+
+on:
+  push:
+    branches:
+      - master  # Change this to your main branch name
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake g++ libncurses5-dev
+
+      - name: Configure and Build
+        run: |
+          mkdir build
+          cd build
+          cmake ..
+          make
+
+#      - name: Archive Artifacts
+#        run: |
+#          cd build/src
+#          tar -czvf TextDungeon.tar.gz
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: linux-build-artifacts
+          path: build/src/TextDungeon
+
+  build-macos:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Install Dependencies
+        run: |
+          brew update
+          brew install cmake ncurses
+
+      - name: Configure and Build
+        run: |
+          mkdir build
+          cd build
+          cmake ..
+          make
+
+#      - name: Archive Artifacts
+#        run: |
+#          cd build/src
+#          tar -czvf TextDungeon-macos.tar.gz
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: macos-build-artifacts
+          path: build/src/TextDungeon
