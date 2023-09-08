@@ -6,7 +6,7 @@ on:
       - actions  # Change this to your main branch name
 
 jobs:
-  build:
+  build-linux:
     runs-on: ubuntu-latest
 
     steps:
@@ -30,10 +30,72 @@ jobs:
           cd build/src
           mkdir -p artifacts
           mv TextDungeon artifacts/
-          tar -czvf TextDungeon.tar.gz artifacts/
+          tar -czvf TextDungeon.tar.gz
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: build-artifacts
+          name: linux-build-artifacts
           path: build/src/TextDungeon.tar.gz
+
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Set up MSVC
+        uses: microsoft/setup-msbuild@v1
+
+      - name: Configure and Build
+        run: |
+          mkdir build
+          cd build
+          cmake ..
+          msbuild /p:Configuration=Release
+
+      - name: Archive Artifacts
+        run: |
+          cd build/src/Release
+          mkdir -p artifacts
+          mv TextDungeon.exe artifacts/
+          tar -czvf TextDungeon-windows.tar.gz artifacts/
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: windows-build-artifacts
+          path: build/src/Release/TextDungeon-windows.tar.gz
+
+  build-macos:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Install Dependencies
+        run: |
+          brew update
+          brew install cmake ncurses
+
+      - name: Configure and Build
+        run: |
+          mkdir build
+          cd build
+          cmake ..
+          make
+
+      - name: Archive Artifacts
+        run: |
+          cd build/src
+          mkdir -p artifacts
+          mv TextDungeon artifacts/
+          tar -czvf TextDungeon-macos.tar.gz artifacts/
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: macos-build-artifacts
+          path: build/src/TextDungeon-macos.tar.gz
