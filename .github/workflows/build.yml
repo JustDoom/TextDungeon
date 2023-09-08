@@ -25,18 +25,16 @@ jobs:
           cmake ..
           make
 
-      - name: Archive Artifacts
-        run: |
-          cd build/src
-          mkdir -p artifacts
-          mv TextDungeon artifacts/
-          tar -czvf TextDungeon.tar.gz artifacts
+#      - name: Archive Artifacts
+#        run: |
+#          cd build/src
+#          tar -czvf TextDungeon.tar.gz
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v2
         with:
           name: linux-build-artifacts
-          path: build/src/TextDungeon.tar.gz
+          path: build/src/TextDungeon
 
   build-macos:
     runs-on: macos-latest
@@ -57,15 +55,13 @@ jobs:
           cmake ..
           make
 
-      - name: Archive Artifacts
-        run: |
-          cd build/src
-          mkdir -p artifacts
-          mv TextDungeon artifacts/
-          tar -czvf TextDungeon-macos.tar.gz artifacts/
+#      - name: Archive Artifacts
+#        run: |
+#          cd build/src
+#          tar -czvf TextDungeon-macos.tar.gz
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v2
         with:
           name: macos-build-artifacts
-          path: build/src/TextDungeon-macos.tar.gz
+          path: build/src/TextDungeon
