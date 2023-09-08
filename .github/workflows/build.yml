@@ -3,7 +3,7 @@ name: Build and Compile CMake C++ Project
 on:
   push:
     branches:
-      - actions  # Change this to your main branch name
+      - master  # Change this to your main branch name
 
 jobs:
   build-linux:
