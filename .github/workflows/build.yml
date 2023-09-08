@@ -27,5 +27,5 @@ jobs:
 
       - name: Run the Compiled Program
         run: |
-          cd build
+          cd build/src
           ./TextDungeon
