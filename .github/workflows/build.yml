@@ -51,7 +51,6 @@ jobs:
       - name: Install CMake
         run: |
           choco install -y cmake
-          refreshenv
 
       - name: Install vcpkg
         run: |
