@@ -17,4 +17,3 @@ This is just a C++ learning project
 - [ ] Settings
   - [ ] Modify colours
   - [ ] World render type
-  - [ ] 
