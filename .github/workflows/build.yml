@@ -38,55 +38,6 @@ jobs:
           name: linux-build-artifacts
           path: build/src/TextDungeon.tar.gz
 
-  build-windows:
-    runs-on: windows-latest
-
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
-
-      - name: Set up MSVC
-        uses: microsoft/setup-msbuild@v1
-
-      - name: Install CMake
-        run: |
-          choco install -y cmake
-
-      - name: Install vcpkg
-        run: |
-          git clone https://github.com/microsoft/vcpkg.git
-          cd vcpkg
-          bootstrap-vcpkg.bat
-          vcpkg integrate install
-
-      - name: Install and Build Curses Library
-        run: |
-          vcpkg install ncurses:x86-windows --triplet x86-windows
-          vcpkg export --output=C:/libs/ncurses
-
-      - name: Configure and Build
-        run: |
-          mkdir build
-          cd build
-            
-          cmake -DCMAKE_PREFIX_PATH="C:/libs/ncurses" ..
-            
-          # Build the project
-          cmake --build . --config Release
-
-      - name: Archive Artifacts
-        run: |
-          cd build/src/Release
-          mkdir -p artifacts
-          mv TextDungeon.exe artifacts/
-          tar -czvf TextDungeon-windows.tar.gz artifacts/
-
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: windows-build-artifacts
-          path: build/src/Release/TextDungeon-windows.tar.gz
-
   build-macos:
     runs-on: macos-latest
 

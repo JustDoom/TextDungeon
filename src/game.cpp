@@ -5,8 +5,8 @@
 #include "game.h"
 #include "room/room.h"
 #include "ncurses.h"
-#include "memory"
-#include "listener/input_listener.h"
+#include <thread>
+#include <chrono>
 
 using namespace std;
 
@@ -85,7 +85,7 @@ void Game::start() {
 //            room->input(ch, this);
 //        }
 
-        usleep(10000); // Prevent insane CPU usage
+        this_thread::sleep_for(chrono::milliseconds(10));
     }
 }
 
