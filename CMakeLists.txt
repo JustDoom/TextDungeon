@@ -8,9 +8,10 @@ set(CMAKE_CXX_STANDARD 23)
 add_subdirectory(src)
 
 find_package(Curses REQUIRED)
+target_include_directories(TextDungeon PRIVATE ${CURSES_INCLUDE_DIRS})
+
 if(APPLE)
-    target_link_libraries(YourTargetName PRIVATE curses)
+    target_link_libraries(TextDungeon PRIVATE curses)
 else ()
     target_link_libraries(TextDungeon PRIVATE ${CURSES_LIBRARIES})
 endif()
-target_include_directories(TextDungeon PRIVATE ${CURSES_INCLUDE_DIRS})

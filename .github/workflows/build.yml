@@ -52,7 +52,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake -DCMAKE_PREFIX_PATH="C:/path/to/curses-library" ..
+          cmake ..
           msbuild /p:Configuration=Release
 
       - name: Archive Artifacts
