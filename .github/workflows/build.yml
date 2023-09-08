@@ -48,12 +48,32 @@ jobs:
       - name: Set up MSVC
         uses: microsoft/setup-msbuild@v1
 
+      - name: Install CMake
+        run: |
+          choco install -y cmake
+          refreshenv
+
+      - name: Install vcpkg
+        run: |
+          git clone https://github.com/microsoft/vcpkg.git
+          cd vcpkg
+          bootstrap-vcpkg.bat
+          vcpkg integrate install
+
+      - name: Install and Build Curses Library
+        run: |
+          vcpkg install ncurses
+          vcpkg export --output=C:/libs/ncurses
+
       - name: Configure and Build
         run: |
           mkdir build
           cd build
-          cmake ..
-          msbuild /p:Configuration=Release
+            
+          cmake -DCMAKE_PREFIX_PATH="C:/libs/ncurses" ..
+            
+          # Build the project
+          cmake --build . --config Release
 
       - name: Archive Artifacts
         run: |
