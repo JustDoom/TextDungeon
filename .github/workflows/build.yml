@@ -1,4 +1,4 @@
-name: Build and Compile CMake C++ Project
+name: Build
 
 on:
   push:
