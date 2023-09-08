@@ -61,7 +61,7 @@ jobs:
 
       - name: Install and Build Curses Library
         run: |
-          vcpkg install ncurses
+          vcpkg install ncurses:x86-windows --triplet x86-windows
           vcpkg export --output=C:/libs/ncurses
 
       - name: Configure and Build
