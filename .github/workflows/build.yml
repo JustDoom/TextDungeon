@@ -25,7 +25,15 @@ jobs:
           cmake ..
           make
 
-      - name: Run the Compiled Program
+      - name: Archive Artifacts
         run: |
           cd build/src
-          ./TextDungeon
+          mkdir -p artifacts
+          mv TextDungeon artifacts/
+          tar -czvf TextDungeon.tar.gz artifacts/
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: build-artifacts
+          path: build/src/TextDungeon.tar.gz
