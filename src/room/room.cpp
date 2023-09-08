@@ -7,7 +7,6 @@
 #include "../game.h"
 #include "../entity/entity.h"
 #include "iostream"
-#include "../entity/room_switch.h"
 
 using namespace std;
 
@@ -38,13 +37,13 @@ bool Room::render() {
         for (int j = 0; j < width; j++) {
             Entity* priority = nullptr;
             for (Entity* entity : entities) {
-                if (j + 1 == entity->getX() && i + 1 == entity->getY()) { // Render player
-                    if (priority != nullptr && entity->getPriority() > priority->getPriority()) continue;
-                    priority = entity;
-                }
+//                if (j + 1 == entity->getX() && i + 1 == entity->getY()) { // Render player
+//                    if (priority != nullptr && entity->getPriority() > priority->getPriority()) continue;
+//                    priority = entity;
+//                }
             }
-            if (priority != nullptr) priority->render();
-            else printw("0 ");
+//            if (priority != nullptr) priority->render();
+//            else printw("0 ");
         }
         printw("\n");
     }
@@ -69,18 +68,17 @@ void Room::input(int ch) {
 void Room::input(int ch, Game* game) {
     if (ch == 'e' || ch == '\n') {
         for (Entity* entity : entities) {
-            auto* v = dynamic_cast<RoomSwitch*>(entity);
-            if (!v || game->player->getX() != entity->getX() || game->player->getY() != entity->getY()) continue;
-
-            RoomSwitch* partner = v->getPartner();
-            game->player->setX(partner->getX());
-            game->player->setY(partner->getY());
-
-            removeEntity(game->player);
-            v->getConnectedRoom()->addEntity(game->player);
-            game->setCurrentRoom(v->getConnectedRoom());
-            v->getConnectedRoom()->changed = true;
-            printw("switched");
+//            auto* v = dynamic_cast<RoomSwitch*>(entity);
+//            if (!v || game->player->getX() != entity->getX() || game->player->getY() != entity->getY()) continue;
+//
+//            RoomSwitch* partner = v->getPartner();
+//            game->player->setX(partner->getX());
+//            game->player->setY(partner->getY());
+//
+//            removeEntity(game->player);
+//            v->getConnectedRoom()->addEntity(game->player);
+//            game->setCurrentRoom(v->getConnectedRoom());
+//            v->getConnectedRoom()->changed = true;
         }
     }
 }

@@ -7,8 +7,6 @@
 #include "ncurses.h"
 #include "memory"
 #include "listener/input_listener.h"
-#include "entity/enemy.h"
-#include "entity/room_switch.h"
 
 using namespace std;
 
@@ -19,45 +17,35 @@ Game::Game() {
 void Game::start() {
     running = true;
 
-    vector<InputListener*> inputListeners;
-    Player player(1, 'X', COLOR_GREEN, 1, 1);
-    this->player = &player;
-    inputListeners.push_back(&player);
+//    Player player(1, 'X', COLOR_GREEN, 1, 1);
+//    this->player = &player;
+//    inputListeners.push_back(&player);
 
     // Add all the rooms
     rooms["test"] = Room(5, 5);
     rooms["test2"] = Room(2, 5);
     rooms["test3"] = Room(10, 20);
 
-    // Add room to listener
-    inputListeners.push_back(&rooms["test"]);
-    inputListeners.push_back(&rooms["test2"]);
-    inputListeners.push_back(&rooms["test3"]);
-
     // Create room switch entities
-    RoomSwitch roomSwitch = RoomSwitch(2, 'R', COLOR_BLUE, &rooms["test2"], 3, 3);
-    RoomSwitch roomSwitch2 = RoomSwitch(2, 'R', COLOR_BLUE, &rooms["test"], 2, 2);
-    RoomSwitch roomSwitch3 = RoomSwitch(2, 'R', COLOR_BLUE, &rooms["test3"], 5, 2);
-    RoomSwitch roomSwitch4 = RoomSwitch(2, 'R', COLOR_BLUE, &rooms["test2"], 2, 7);
+//    RoomSwitch roomSwitch = RoomSwitch(2, 'R', COLOR_BLUE, &rooms["test2"], 3, 3);
+//    RoomSwitch roomSwitch2 = RoomSwitch(2, 'R', COLOR_BLUE, &rooms["test"], 2, 2);
+//    RoomSwitch roomSwitch3 = RoomSwitch(2, 'R', COLOR_BLUE, &rooms["test3"], 5, 2);
+//    RoomSwitch roomSwitch4 = RoomSwitch(2, 'R', COLOR_BLUE, &rooms["test2"], 2, 7);
+//
+//    roomSwitch.setPartner(&roomSwitch2);
+//    roomSwitch2.setPartner(&roomSwitch);
+//    roomSwitch3.setPartner(&roomSwitch4);
+//    roomSwitch4.setPartner(&roomSwitch3);
+//
+//    // Add rooms to rooms
+//    rooms["test"].addEntity(&roomSwitch);
+//    rooms["test2"].addEntity(&roomSwitch2);
+//    rooms["test2"].addEntity(&roomSwitch3);
+//    rooms["test3"].addEntity(&roomSwitch4);
 
-    roomSwitch.setPartner(&roomSwitch2);
-    roomSwitch2.setPartner(&roomSwitch);
-    roomSwitch3.setPartner(&roomSwitch4);
-    roomSwitch4.setPartner(&roomSwitch3);
-
-    // Add rooms to rooms
-    rooms["test"].addEntity(&roomSwitch);
-    rooms["test2"].addEntity(&roomSwitch2);
-    rooms["test2"].addEntity(&roomSwitch3);
-    rooms["test3"].addEntity(&roomSwitch4);
-
-    // Enemies
-    Enemy enemy(0, 'E', COLOR_RED, 1, 2); // TODO: collision detection
-    rooms["test"].addEntity(&enemy);
 
     // Setup current room
     room = &rooms["test"];
-    rooms["test"].addEntity(&player);
 
     // Setup ncurses
     initscr();

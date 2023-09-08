@@ -6,7 +6,6 @@
 #define TEXTDUNGEON_GAME_H
 
 #include "room/room.h"
-#include "entity/player.h"
 #include "vector"
 #include "string"
 

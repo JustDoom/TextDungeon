@@ -18,10 +18,10 @@ void InputSystem::update(vector<Entity> &entities) {
     int ch = getch();
     if (ch != ERR) {
         for (auto& entity : entities) {
-            if (auto comp = entity.getComponent<PositionComponent>()) {
-                //entity.update();
-                comp->update();
-            }
+//            if (auto comp = entity.getComponent<PositionComponent>()) {
+//                //entity.update();
+//                comp->update();
+//            }
         }
 
         //room->input(ch, this);
