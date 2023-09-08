@@ -30,7 +30,7 @@ jobs:
           cd build/src
           mkdir -p artifacts
           mv TextDungeon artifacts/
-          tar -czvf TextDungeon.tar.gz
+          tar -czvf TextDungeon.tar.gz artifacts
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v2
@@ -52,7 +52,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake ..
+          cmake -DCMAKE_PREFIX_PATH="C:/path/to/curses-library" ..
           msbuild /p:Configuration=Release
 
       - name: Archive Artifacts
