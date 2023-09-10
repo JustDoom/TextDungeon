@@ -15,10 +15,10 @@ class Component;
 
 class Entity {
 private:
-    vector<shared_ptr<Component>> components;
+    vector<Component> components;
 
 public:
-    void addComponent(shared_ptr<Component> component);
+    void addComponent(Component component);
     template <typename T> shared_ptr<T> getComponent();
 
     void update(); // Might all be handled by systems

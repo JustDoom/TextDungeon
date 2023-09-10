@@ -6,8 +6,8 @@
 
 using namespace std;
 
-void Entity::addComponent(shared_ptr<Component> component) {
-    component->owner = this;
+void Entity::addComponent(Component component) {
+    component.owner = this;
     components.push_back(component);
 }
 

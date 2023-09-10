@@ -5,9 +5,10 @@
 #ifndef TEXTDUNGEON_GAME_H
 #define TEXTDUNGEON_GAME_H
 
-#include "room/room.h"
-#include "vector"
+#include "map"
 #include "string"
+#include "entity/entity.h"
+#include "component/room_component.h"
 
 using namespace std;
 
@@ -17,8 +18,8 @@ class Player;
 class Game {
 private:
     bool running;
-    Room* room;
-    map<string, Room> rooms;
+    RoomComponent& currentRoom;
+    map<string, Entity*> rooms; // TODO: Does this need to be a map?
 
 public:
     Game();
@@ -31,8 +32,8 @@ public:
     void setRunning(bool running);
     bool isRunning();
 
-    void setCurrentRoom(Room* room);
-    Room* getCurrentRoom();
+    void setCurrentRoom(RoomComponent& currentRoom);
+    RoomComponent& getCurrentRoom();
 };
 
 

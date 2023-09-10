@@ -3,8 +3,6 @@
 //
 
 #include "game.h"
-#include "room/room.h"
-#include "ncurses.h"
 #include <thread>
 #include <chrono>
 
@@ -12,78 +10,19 @@ using namespace std;
 
 Game::Game() {
     this->rooms = {};
+    this->running = false;
+
+    // TODO: Do map loading stuff etc properly from file
+
+    Entity roomEntity;
+    roomEntity.addComponent(RoomComponent());
 }
 
 void Game::start() {
-    running = true;
+    this->running = true;
 
-//    Player player(1, 'X', COLOR_GREEN, 1, 1);
-//    this->player = &player;
-//    inputListeners.push_back(&player);
-
-    // Add all the rooms
-    rooms["test"] = Room(5, 5);
-    rooms["test2"] = Room(2, 5);
-    rooms["test3"] = Room(10, 20);
-
-    // Create room switch entities
-//    RoomSwitch roomSwitch = RoomSwitch(2, 'R', COLOR_BLUE, &rooms["test2"], 3, 3);
-//    RoomSwitch roomSwitch2 = RoomSwitch(2, 'R', COLOR_BLUE, &rooms["test"], 2, 2);
-//    RoomSwitch roomSwitch3 = RoomSwitch(2, 'R', COLOR_BLUE, &rooms["test3"], 5, 2);
-//    RoomSwitch roomSwitch4 = RoomSwitch(2, 'R', COLOR_BLUE, &rooms["test2"], 2, 7);
-//
-//    roomSwitch.setPartner(&roomSwitch2);
-//    roomSwitch2.setPartner(&roomSwitch);
-//    roomSwitch3.setPartner(&roomSwitch4);
-//    roomSwitch4.setPartner(&roomSwitch3);
-//
-//    // Add rooms to rooms
-//    rooms["test"].addEntity(&roomSwitch);
-//    rooms["test2"].addEntity(&roomSwitch2);
-//    rooms["test2"].addEntity(&roomSwitch3);
-//    rooms["test3"].addEntity(&roomSwitch4);
-
-
-    // Setup current room
-    room = &rooms["test"];
-
-    // Setup ncurses
-    initscr();
-    start_color();
-
-    // Colours
-    init_pair(1, COLOR_BLACK, COLOR_BLACK);
-    init_pair(2, COLOR_RED, COLOR_BLACK);
-    init_pair(3, COLOR_GREEN, COLOR_BLACK);
-    init_pair(4, COLOR_YELLOW, COLOR_BLACK);
-    init_pair(5, COLOR_BLUE, COLOR_BLACK);
-    init_pair(6, COLOR_MAGENTA, COLOR_BLACK);
-    init_pair(7, COLOR_CYAN, COLOR_BLACK);
-    init_pair(8, COLOR_WHITE, COLOR_BLACK);
-
-    noecho();
-    timeout(0);
-    keypad(stdscr, TRUE);
-    scrollok(stdscr, TRUE);
-
-    // Main loop
-    while (running) {
-        room->render();
-
-//        int ch = getch();
-//        if (ch != ERR) {
-//            room->move();
-//            for (InputListener* listener : inputListeners) {
-//                if (auto* v = dynamic_cast<Player*>(listener)) {
-//                    v->handleMovement(ch, room);
-//                }
-////                else if (auto* e = dynamic_cast<Room*>(listener)) {
-////                    e->input(ch, this);
-////                }
-//            }
-//
-//            room->input(ch, this);
-//        }
+    while (this->running) {
+        for ()
 
         this_thread::sleep_for(chrono::milliseconds(10));
     }
@@ -101,11 +40,10 @@ bool Game::isRunning() {
     return running;
 }
 
-void Game::setCurrentRoom(Room *room) {
-    this->room = room;
-    room->changed = true;
+void Game::setCurrentRoom(RoomComponent &currentRoom) {
+    this->currentRoom = currentRoom;
 }
 
-Room* Game::getCurrentRoom() {
-    return room;
+RoomComponent &Game::getCurrentRoom() {
+    return this->currentRoom;
 }

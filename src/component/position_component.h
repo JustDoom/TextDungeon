@@ -11,6 +11,7 @@ class PositionComponent : public Component {
 private:
     int x;
     int y;
+    // TODO: Allow accessing parent room
 public:
     PositionComponent(int x, int y);
     void update() override;

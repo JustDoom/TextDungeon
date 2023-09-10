@@ -11,6 +11,8 @@ class Entity;
 
 class Component {
 public:
+    Component();
+    Component(Entity* entity);
     virtual ~Component() = default;
 
     Entity* owner;
