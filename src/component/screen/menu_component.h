@@ -10,15 +10,17 @@
 
 using namespace std;
 
+class Component;
+
 class MenuComponent : public Component {
 private:
     vector<Entity*> entities;
 
 public:
     MenuComponent();
-    MenuComponent(vector<Entity*> entities);
+//    MenuComponent(vector<Entity*> entities);
 
-    void update() override;
+//    void update() override;
 
     void addEntity(Entity* entity);
     void removeEntity(Entity* entity);

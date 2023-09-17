@@ -9,17 +9,16 @@
 #include "string"
 #include "entity/entity.h"
 #include "component/room_component.h"
+#include "system/system.h"
 
 using namespace std;
 
-class Room;
 class Player;
 
 class Game {
 private:
     bool running;
-    RoomComponent& currentRoom;
-    map<string, Entity*> rooms; // TODO: Does this need to be a map?
+    std::vector<System> systems;
 
 public:
     Game();
@@ -31,9 +30,6 @@ public:
 
     void setRunning(bool running);
     bool isRunning();
-
-    void setCurrentRoom(RoomComponent& currentRoom);
-    RoomComponent& getCurrentRoom();
 };
 
 

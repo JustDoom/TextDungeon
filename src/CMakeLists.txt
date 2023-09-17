@@ -4,8 +4,6 @@ add_executable(TextDungeon
         component/room_component.h
         entity/entity.cpp
         entity/entity.h
-        listener/input_listener.cpp
-        listener/input_listener.h
         game.cpp
         component/render_component.cpp
         component/render_component.h
@@ -14,4 +12,10 @@ add_executable(TextDungeon
         component/position_component.h
         system/system.h
         system/input_system.cpp
-        system/input_system.h component/screen/menu_component.h component/screen/menu_component.cpp)
+        system/input_system.h
+        component/screen/menu_component.h
+        component/screen/menu_component.cpp
+        component/room_component.cpp
+        manager/room_manager.cpp
+        manager/room_manager.h
+        component/component.cpp)

@@ -6,20 +6,14 @@
 
 using namespace std;
 
-void Entity::addComponent(Component component) {
-    component.owner = this;
+class Entity;
+
+void Entity::addComponent(std::shared_ptr<Component> component) {
+    component->owner = this;
     components.push_back(component);
 }
 
-template <typename T>
-shared_ptr<T> Entity::getComponent() {
-    for (auto& component : this->components) {
-        if (auto casted = std::dynamic_pointer_cast<T>(component)) {
-            return casted;
-        }
-    }
-    return nullptr;
-}
+
 
 void Entity::update() {
     for (auto& component : components) {

@@ -15,11 +15,19 @@ class Component;
 
 class Entity {
 private:
-    vector<Component> components;
+    vector<std::shared_ptr<Component>> components;
 
 public:
-    void addComponent(Component component);
-    template <typename T> shared_ptr<T> getComponent();
+    void addComponent(std::shared_ptr<Component> component);
+    template <typename T>
+    shared_ptr<T> getComponent() {
+        for (auto& component : this->components) {
+            if (auto casted = std::dynamic_pointer_cast<T>(component)) {
+                return casted;
+            }
+        }
+        return nullptr;
+    }
 
     void update(); // Might all be handled by systems
 };

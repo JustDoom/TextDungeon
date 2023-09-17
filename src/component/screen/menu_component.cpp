@@ -2,15 +2,19 @@
 // Created by dino on 6/09/23.
 //
 
+#include "../../entity/entity.h"
 #include "menu_component.h"
+#include "vector"
+
+class Entity;
 
 MenuComponent::MenuComponent() {
     this->entities = {};
 }
 
-MenuComponent::MenuComponent(vector<Entity*> entities) {
-    this->entities = entities;
-}
+//MenuComponent::MenuComponent(vector<Entity*> entities) {
+//    this->entities = entities;
+//}
 
 void MenuComponent::addEntity(Entity* entity) {
     this->entities.push_back(entity);

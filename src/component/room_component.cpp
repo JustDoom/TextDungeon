@@ -2,10 +2,14 @@
 // Created by doom on 4/09/23.
 //
 
+#include "../entity/entity.h"
 #include "room_component.h"
-#include "iostream"
+#include "vector"
 
 using namespace std;
+
+class Entity;
+class RoomComponent;
 
 RoomComponent::RoomComponent() {
     this->height = 1;
