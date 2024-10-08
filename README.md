@@ -1,3 +1,5 @@
+**This is sort of abandoned, a similar thing is being made [here](https://github.com/JustDoom/Cngine) now. A game engine for text dungeon games I guess**
+
 This is just a C++ learning project
 
 ## TODO
